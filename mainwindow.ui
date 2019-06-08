@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>559</width>
+    <height>431</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Atis Launcher</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,4">
+    <item>
+     <widget class="ProfileForm" name="profileWidget" native="true"/>
+    </item>
+    <item>
+     <widget class="QtMaterialTabs" name="tabHeaderWidget" native="true"/>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Module Prep</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="BaseStackedPage" name="setupStackedWidget" native="true">
+          <property name="styleSheet">
+           <string notr="true">#setupStackedWidget {image: url(:/icons/transparent_logo.png);}</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Runtime</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="BaseStackedPage" name="runtimeStackedWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Log</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="LogPageForm" name="logWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>559</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew_Task"/>
+    <addaction name="actionSave_Configurations"/>
+   </widget>
+   <widget class="QMenu" name="menuProfile">
+    <property name="title">
+     <string>Profile</string>
+    </property>
+    <addaction name="actionAdd_Profile"/>
+    <addaction name="actionRemove_Profile"/>
+    <addaction name="actionDuplicate_Profile"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuProfile"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNew_Task">
+   <property name="text">
+    <string>New Task</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionSave_Configurations">
+   <property name="text">
+    <string>Save Configurations</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionAdd_Profile">
+   <property name="text">
+    <string>Add Profile</string>
+   </property>
+  </action>
+  <action name="actionRemove_Profile">
+   <property name="text">
+    <string>Remove Profile</string>
+   </property>
+  </action>
+  <action name="actionDuplicate_Profile">
+   <property name="text">
+    <string>Duplicate Profile</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ProfileForm</class>
+   <extends>QWidget</extends>
+   <header>widgets/Forms/profileform.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialTabs</class>
+   <extends>QWidget</extends>
+   <header>qtmaterialtabs.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LogPageForm</class>
+   <extends>QWidget</extends>
+   <header location="global">widgets/Logs/logpageform.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BaseStackedPage</class>
+   <extends>QWidget</extends>
+   <header>widgets/Stacked/basestackedpage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

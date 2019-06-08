@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/kill.png</file>
+        <file>icons/play.png</file>
+        <file>icons/script.png</file>
+        <file>icons/programming.png</file>
+        <file>icons/bin.png</file>
+        <file>icons/new_task/competition.png</file>
+        <file>icons/new_task/script.png</file>
+        <file>icons/new_task/sensor.png</file>
+        <file>icons/new_task/terminal.png</file>
+        <file>icons/new_task/Types/command.png</file>
+        <file>icons/new_task/Types/roslaunch.png</file>
+        <file>icons/new_task/Types/rosrun.png</file>
+        <file>icons/new_task/Types/script.png</file>
+        <file>icons/toolbar/new_task.png</file>
+        <file>icons/toolbar/save.png</file>
+        <file>icons/down-arrow.png</file>
+        <file>icons/up-arrow.png</file>
+        <file>icons/dashboard/add_profile.png</file>
+        <file>icons/dashboard/remove_profile.png</file>
+        <file>icons/copy.png</file>
+        <file>icons/edit.png</file>
+        <file>icons/new_task/Types32/rosrun_32px.png</file>
+        <file>icons/new_task/Types32/command_32px.png</file>
+        <file>icons/new_task/Types32/script_32px.png</file>
+        <file>icons/new_task/Types32/roslaunch_32px.png</file>
+        <file>icons/cursor/drag.png</file>
+        <file>icons/logo_cropped.png</file>
+        <file>icons/transparent_logo.png</file>
+        <file>splash/autocad.png</file>
+        <file>splash/atis_splashscreen.png</file>
+    </qresource>
+</RCC>
