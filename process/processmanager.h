@@ -26,6 +26,10 @@ protected:
 signals:
   void runStateChanged(QString caption, QString profile, bool waiting);
 private:
+  void runInBackground(const QString &cmd,
+                       const QString &rosSetupPath,
+                       const QString &wsSetupPath);
+private:
   ItemsQueue queued_items;
   bool applyDelay;
 };

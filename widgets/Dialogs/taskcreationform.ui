@@ -594,12 +594,9 @@
             <widget class="QLineEdit" name="cmdLineEdit"/>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox">
+            <widget class="QCheckBox" name="backgroundCBox">
              <property name="text">
-              <string>Open Terminal</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
+              <string>Run in background</string>
              </property>
             </widget>
            </item>

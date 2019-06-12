@@ -78,7 +78,7 @@ void TaskCreationForm::AddTask(bool edit)
         data.insert(Utilities::NODENAME, QStringList() << ui->nodeBox->text());
         break;
     case 2: //system Command
-        data.insert(Utilities::COMMAND, QStringList() << ui->cmdLineEdit->text());
+        data.insert(Utilities::COMMAND, QStringList() << ui->cmdLineEdit->text()<<(ui->backgroundCBox->isChecked()?"True":"False"));
         break;
     case 3: //Script
         data.insert(Utilities::PYTHONVERSION, QStringList() << ui->python_combobox->currentText());
@@ -126,6 +126,7 @@ void TaskCreationForm::fillDataForEditMode(const QString &caption,
         break;
     case Utilities::TaskTypes::Command:
         ui->cmdLineEdit->setText(data[Utilities::COMMAND][0]);
+        ui->backgroundCBox->setChecked(data[Utilities::COMMAND][1]=="True"?true:false);
         break;
     case Utilities::TaskTypes::Script:
         ui->pathLineEdit->setText(data[Utilities::FULLPATH][0]);

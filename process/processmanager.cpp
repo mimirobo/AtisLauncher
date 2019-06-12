@@ -133,19 +133,48 @@ void SchedulerThread::run()
     for (auto item : queued_items)
     {
         emit runStateChanged(item->caption(), item->profile(), true);
-        QString terminal_app = "gnome-terminal";
-        QStringList terminal_params = QStringList() << "--working-directory"
-                                                    << "=~";
-        QString source_cmd = "source ~/.bashrc ; source "+ rosSetupPath +"; source "+ workspaceSetupPath+"; ";
-        QString rename_tab_name = "PS1=$ PROMPT_COMMAND= echo -en \"\\033]0;"+item->caption()+"-atislauncher\\a\";";
-        QString built_cmd = QString("bash -c ") + QString("\'") +source_cmd + rename_tab_name +ProcessManager::generateCommand(item) +  QString("\'");
-        terminal_params << "-e" << built_cmd;
-        if(applyDelay)
-            if (item->runDelay() > 0)
-                QThread::sleep(item->runDelay());
-        QProcess::startDetached(terminal_app, terminal_params);
+
+        if(item->type() == Utilities::TaskTypes::Command &&
+                item->params()[Utilities::COMMAND][1]=="True")
+        {
+            //Run in Background
+            if(applyDelay)
+                if (item->runDelay() > 0)
+                    QThread::sleep(item->runDelay());
+            runInBackground(ProcessManager::generateCommand(item),
+                            rosSetupPath,
+                            workspaceSetupPath);
+        }else
+        {
+            //Run in Terminal
+            QString terminal_app = "gnome-terminal";
+            QStringList terminal_params = QStringList() << "--working-directory"
+                                                        << "=~";
+            QString source_cmd = "source ~/.bashrc ; source "+ rosSetupPath +"; source "+ workspaceSetupPath+"; ";
+            QString rename_tab_name = "PS1=$ PROMPT_COMMAND= echo -en \"\\033]0;"+item->caption()+"-atislauncher\\a\";";
+            QString built_cmd = QString("bash -c ") + QString("\'") +source_cmd + rename_tab_name +ProcessManager::generateCommand(item) +  QString("\'");
+            terminal_params << "-e" << built_cmd;
+            if(applyDelay)
+                if (item->runDelay() > 0)
+                    QThread::sleep(item->runDelay());
+            QProcess::startDetached(terminal_app, terminal_params);
+        }
         emit runStateChanged(item->caption(), item->profile(), false);
     }
+}
+
+void SchedulerThread::runInBackground(const QString &cmd,
+                                      const QString &rosSetupPath,
+                                      const QString &wsSetupPath)
+{
+    QStringList params = QStringList() << "-c" << "source ~/.bashrc;source "+
+                                           rosSetupPath+
+                                           ";source "+
+                                           wsSetupPath+
+                                           ";"+
+                                           cmd+
+                                           ";";
+    QProcess::startDetached("bash",params);
 }
 
 void SchedulerThread::setApplyDelay(bool value)
