@@ -108,14 +108,19 @@ void ProcessManager::RunMultiple(const ItemsQueue &items)
                                       item->params()[Utilities::FULLPATH][0]);
         }
     }
-    qDebug()<<runningLaunchFiles;
+    //qDebug()<<runningLaunchFiles;
     SchedulerThread *schedulerThread = new SchedulerThread(items);
+    connect(schedulerThread, &SchedulerThread::runStateChanged,
+            this, &ProcessManager::runStateChanged, Qt::QueuedConnection);
     schedulerThread->setApplyDelay(true);
     connect(schedulerThread, &SchedulerThread::started, [this] {
-        qDebug() << "The scheduler thread is started";
+        //qDebug() << "The scheduler thread is started";
+        emit RunAllBegan();
     });
     connect(schedulerThread, &SchedulerThread::finished, [this,schedulerThread] {
-        qDebug() << "The scheduler thread is finished";
+        //qDebug() << "The scheduler thread is finished";
+        emit RunAllFinished();
+        schedulerThread->disconnect();
         schedulerThread->deleteLater();
     });
     schedulerThread->start();
@@ -127,6 +132,7 @@ void SchedulerThread::run()
     QString workspaceSetupPath = Utilities::getInstance()->getWorkSpaceSetupPath();
     for (auto item : queued_items)
     {
+        emit runStateChanged(item->caption(), item->profile(), true);
         QString terminal_app = "gnome-terminal";
         QStringList terminal_params = QStringList() << "--working-directory"
                                                     << "=~";
@@ -137,8 +143,8 @@ void SchedulerThread::run()
         if(applyDelay)
             if (item->runDelay() > 0)
                 QThread::sleep(item->runDelay());
-        QProcessEnvironment env = QProcessEnvironment::systemEnvironment();//what to do?
         QProcess::startDetached(terminal_app, terminal_params);
+        emit runStateChanged(item->caption(), item->profile(), false);
     }
 }
 

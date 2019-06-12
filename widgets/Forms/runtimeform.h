@@ -28,6 +28,8 @@ public:
     void RenameItem(const QString &old_caption,
                     const QString &new_caption);
     void MoveRunItem(int index, int dest_index);
+    void ChangeWaitForRunItem(const QString &caption,
+                              bool waiting);
 
     //Getters
     ItemForm* Item(const QString &caption)
@@ -40,7 +42,9 @@ signals:
     void runAllRequested(const QString &profile);
 private slots:
     void on_pushButton_clicked();
-
+public slots:
+    void onRunAllBegan();
+    void onRunAllFinished();
 private:
     Ui::RuntimeForm *ui;
     QString mProfile;

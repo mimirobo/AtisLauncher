@@ -23,7 +23,8 @@ public:
 
 protected:
   void run() override;
-
+signals:
+  void runStateChanged(QString caption, QString profile, bool waiting);
 private:
   ItemsQueue queued_items;
   bool applyDelay;
@@ -35,9 +36,10 @@ class ProcessManager : public QObject
 private:
   static ProcessManager *instance;
   QList<QProcess *> processes;
-  //SchedulerThread *schedulerThread;
 Q_SIGNALS:
-  void newProcessStarted(QString title, qint64 pid);
+  void runStateChanged(QString caption, QString profile, bool waiting);
+  void RunAllBegan();
+  void RunAllFinished();
 
 public:
   static QString generateCommand(ItemModel *item);

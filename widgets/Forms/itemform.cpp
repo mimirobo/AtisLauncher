@@ -16,6 +16,8 @@
 #include <QJsonArray>
 //Process
 #include "process/processmanager.h"
+//Material
+#include "qtmaterialcircularprogress.h"
 
 //constructor for setup items
 ItemForm::ItemForm(const QString &caption,
@@ -58,6 +60,7 @@ void ItemForm::init()
     connect(this, &ItemForm::customContextMenuRequested, this, &ItemForm::showContextMenu);
     ui->editable_lbl->setCaption(model->caption());
     ui->delayBox->setValue(model->runDelay());
+
     InitializeType();
 }
 
@@ -124,6 +127,8 @@ void ItemForm::InitializeType()
         ui->delayBox->hide();
         ui->delay_cap->hide();
         ui->playBtn->hide();
+
+        ui->loadingWidget->hide();
         break;
     case ItemForm::ItemType::Runtime:
         ui->delayBox->blockSignals(true);
@@ -133,6 +138,10 @@ void ItemForm::InitializeType()
         //setRunDelay(mRunDelay);
         ui->editable_lbl->setEditable(false);
         ui->delBtn->setVisible(false);
+
+        ui->loadingWidget->setSize(25);
+        ui->loadingWidget->setProgressType(Material::DeterminateProgress);
+        ui->loadingWidget->setValue(0);
         break;
     }
 
@@ -201,6 +210,20 @@ QJsonObject ItemForm::Serialize() const
 void ItemForm::setSelected(bool selected)
 {
     ui->captionBox->setChecked(selected);
+}
+
+void ItemForm::setWaitForRun(bool wait)
+{
+    if(wait)
+    {
+        ui->loadingWidget->setProgressType(Material::IndeterminateProgress);
+        ui->frame->setStyleSheet("#frame {border: 2px dashed orange;}");
+    }else
+    {
+        ui->loadingWidget->setProgressType(Material::DeterminateProgress);
+        ui->loadingWidget->setValue(0);
+        ui->frame->setStyleSheet("");
+    }
 }
 
 void ItemForm::PlayRemoveAnimation()

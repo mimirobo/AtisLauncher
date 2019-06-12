@@ -15,6 +15,9 @@ RuntimeForm::RuntimeForm(const QString &profile_name, QWidget *parent) :
     mProfile(profile_name)
 {
     ui->setupUi(this);
+    ui->loadingWidget->setSize(25);
+    ui->loadingWidget->setProgressType(Material::DeterminateProgress);
+    ui->loadingWidget->setValue(0);
     ui->listWidget->setDragDropMode(QAbstractItemView::InternalMove);
     connect(ui->listWidget->model(), &QAbstractItemModel::rowsMoved,
             [this](const QModelIndex &parent,
@@ -82,9 +85,30 @@ void RuntimeForm::MoveRunItem(int index, int dest_index)
     runItems.insert(dest_index, runItems.takeAt(index));
 }
 
+void RuntimeForm::ChangeWaitForRunItem(const QString &caption, bool waiting)
+{
+    ui->statusLBL->setText("Modules are kicking off in sequence: "+ caption);
+    items_widget[caption]->setWaitForRun(waiting);
+}
+
 void RuntimeForm::on_pushButton_clicked()
 {
     emit runAllRequested(mProfile);
+}
+
+void RuntimeForm::onRunAllBegan()
+{
+    ui->statusLBL->setText("Modules are kicking off in sequence");
+    ui->loadingWidget->setProgressType(Material::IndeterminateProgress);
+    ui->statusLBL->setStyleSheet("#statusLBL {color:orange;}");
+}
+
+void RuntimeForm::onRunAllFinished()
+{
+    ui->statusLBL->setText("All Modules executed.");
+    ui->loadingWidget->setProgressType(Material::DeterminateProgress);
+    ui->loadingWidget->setValue(0);
+    ui->statusLBL->setStyleSheet("#statusLBL {color:green;}");
 }
 
 QList<ItemModel *> RuntimeForm::getRunItems() const

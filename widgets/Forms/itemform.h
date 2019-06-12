@@ -47,6 +47,7 @@ public:
     inline QString caption() const {return model->caption();}
     //setters
     void setSelected(bool selected);
+    void setWaitForRun(bool wait);
     //others
     void PlayRemoveAnimation();
     void RecaptionSilent(const QString &new_caption);

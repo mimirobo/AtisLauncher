@@ -74,6 +74,15 @@ bool ProfileController::AddProfile(const QString &profile)
         RuntimeForm *runtime = dynamic_cast<RuntimeForm*>(stackedRuntimeView->getProfileWidget(profile));
         ProcessManager::getInstance()->RunMultiple(runtime->getRunItems());
     });
+    connect(ProcessManager::getInstance(), &ProcessManager::runStateChanged,
+            [this,runtime](QString caption, QString profile, bool waiting)
+    {
+        runtime->ChangeWaitForRunItem(caption, waiting);
+    });
+    connect(ProcessManager::getInstance(), &ProcessManager::RunAllBegan,
+            runtime, &RuntimeForm::onRunAllBegan);
+    connect(ProcessManager::getInstance(), &ProcessManager::RunAllFinished,
+            runtime, &RuntimeForm::onRunAllFinished);
 
     mainWindow->setNewTaskEnable(true);
     return true;
