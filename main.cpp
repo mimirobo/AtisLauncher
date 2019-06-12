@@ -57,6 +57,8 @@ void loadGeneralConfigs(const QString &path)
         settings.setValue("workspace","");
         settings.setValue("ros","/opt/ros/kinetic/setup.bash");
         settings.setValue("rospack","/opt/ros/kinetic/bin/rospack");
+        settings.setValue("window_width", 800);
+        settings.setValue("window_height", 600);
         settings.sync();
     }
     //bool result = file.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -73,4 +75,6 @@ void loadGeneralConfigs(const QString &path)
     Utilities::getInstance()->setRosSetupPath(settings.value("ros").toString());
     Utilities::getInstance()->setRospackPath(settings.value("rospack").toString());
     Utilities::getInstance()->setWorkSpaceSetupPath(settings.value("workspace").toString());
+    Utilities::getInstance()->setWindowSize(settings.value("window_width").toInt(),
+                                            settings.value("window_height").toInt());
 }

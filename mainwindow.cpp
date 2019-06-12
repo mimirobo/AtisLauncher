@@ -27,7 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
                                          ui->runtimeStackedWidget,
                                          this);
     initializeTabs();
-    this->resize(800,600);
+    this->resize(Utilities::getInstance()->getWindowWidth(),
+                 Utilities::getInstance()->getWindowHeight());
 }
 
 MainWindow::~MainWindow()

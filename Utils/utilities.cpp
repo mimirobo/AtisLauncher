@@ -79,3 +79,19 @@ void Utilities::setRospackPath(const QString &value)
 {
     rospackPath = value;
 }
+
+void Utilities::setWindowSize(int width, int height)
+{
+    windowWidth = width;
+    windowHeight = height;
+}
+
+int Utilities::getWindowWidth() const
+{
+    return windowWidth;
+}
+
+int Utilities::getWindowHeight() const
+{
+    return windowHeight;
+}

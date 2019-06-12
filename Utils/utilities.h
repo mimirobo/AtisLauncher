@@ -61,11 +61,17 @@ class Utilities : public QObject
     QString getRospackPath() const;
     void setRospackPath(const QString &value);
 
+    void setWindowSize(int width, int height);
+
+    int getWindowWidth() const;
+    int getWindowHeight() const;
+
 private:
     static Utilities *instance;
     QMap<QString, QString> mRosPackages;//all ros packages available on system
 
     QString rosSetupPath, wsSetupPath, rospackPath;
+    int windowWidth, windowHeight;
 };
 
 class NotImplementedException : public std::logic_error
