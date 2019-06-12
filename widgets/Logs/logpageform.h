@@ -22,6 +22,8 @@ public:
 
     void removeAllTabPages();
 
+    void openConsoleInTab(const QString &title);
+
 private slots:
     void on_expandBtn_clicked();
 
@@ -31,6 +33,8 @@ private slots:
     void removeConsoleTabPage(const int &index);
 
     void on_logTab_tabCloseRequested(int index);
+
+    void on_openallBtn_clicked();
 
 private:
     Ui::LogPageForm *ui;

@@ -45,6 +45,14 @@ void LogPageForm::removeAllTabPages()
         removeConsoleTabPage(i);
 }
 
+void LogPageForm::openConsoleInTab(const QString &title)
+{
+    if(openedTabNames.contains(title))
+        ui->logTab->setCurrentIndex(openedTabNames.indexOf(title));
+    else
+        addConsoleTabPage(title, window_ids[title]);
+}
+
 void LogPageForm::on_expandBtn_clicked()
 {
     if(ui->expandBtn->text() == "<<")
@@ -107,10 +115,7 @@ void LogPageForm::on_windowsList_itemDoubleClicked(QListWidgetItem *item)
 {
     //to do: if the window is already closed and the list is not updated
     QString name = item->text();
-    if(openedTabNames.contains(name))
-        ui->logTab->setCurrentIndex(openedTabNames.indexOf(name));
-    else
-        addConsoleTabPage(name,window_ids[name]);
+    openConsoleInTab(name);
 }
 
 void LogPageForm::removeConsoleTabPage(const int &index)
@@ -122,4 +127,14 @@ void LogPageForm::removeConsoleTabPage(const int &index)
 void LogPageForm::on_logTab_tabCloseRequested(int index)
 {
     removeConsoleTabPage(index);
+}
+
+void LogPageForm::on_openallBtn_clicked()
+{
+    for(int i = 0; i < ui->windowsList->count(); ++i)
+    {
+        QListWidgetItem* item = ui->windowsList->item(i);
+        QString name = item->text();
+        openConsoleInTab(name);
+    }
 }
