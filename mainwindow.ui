@@ -14,7 +14,7 @@
    <string>Atis Launcher</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,4">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,4">
     <item>
      <widget class="ProfileForm" name="profileWidget" native="true"/>
     </item>
@@ -118,8 +118,15 @@
     <addaction name="actionRemove_Profile"/>
     <addaction name="actionDuplicate_Profile"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionFind"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuProfile"/>
+   <addaction name="menuEdit"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -159,6 +166,14 @@
   <action name="actionDuplicate_Profile">
    <property name="text">
     <string>Duplicate Profile</string>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="text">
+    <string>Find</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

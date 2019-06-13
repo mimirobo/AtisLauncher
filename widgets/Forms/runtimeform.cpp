@@ -8,6 +8,10 @@
 #include <QDebug>
 #include <QJsonArray>
 #include <QListWidgetItem>
+//Qt Material
+#include <qtmaterialiconbutton.h>
+//Tools
+#include "widgets/Tools/searchform.h"
 
 RuntimeForm::RuntimeForm(const QString &profile_name, QWidget *parent) :
     BaseForm(parent),
@@ -15,9 +19,11 @@ RuntimeForm::RuntimeForm(const QString &profile_name, QWidget *parent) :
     mProfile(profile_name)
 {
     ui->setupUi(this);
+    //initialize Loading Widget
     ui->loadingWidget->setSize(25);
     ui->loadingWidget->setProgressType(Material::DeterminateProgress);
     ui->loadingWidget->setValue(0);
+    //initialize ListWidget
     ui->listWidget->setDragDropMode(QAbstractItemView::InternalMove);
     connect(ui->listWidget->model(), &QAbstractItemModel::rowsMoved,
             [this](const QModelIndex &parent,
@@ -30,11 +36,49 @@ RuntimeForm::RuntimeForm(const QString &profile_name, QWidget *parent) :
         //qDebug()<<"Item at "<<start<<" moved to row "<<row;
         MoveRunItem(start, row);
     });
+    //initialize Search Tool
+    initSearchTool();
+    //initialize Filter UI
+    initSearchFilter();
 }
 
 RuntimeForm::~RuntimeForm()
 {
+    delete clearFilterBtn;
     delete ui;
+}
+
+void RuntimeForm::initSearchTool()
+{
+    searchWidget = new SearchForm(this);
+    searchWidget->hide();
+
+    connect(searchWidget, &SearchForm::SearchTextChanged,
+            [this](const QString &filter_string)
+    {
+        FilterByCaption(filter_string);
+        if(filter_string.isEmpty())
+        {
+            ui->filterWidget->hide();
+        }else
+        {
+            ui->filterLabel->setText(filter_string);
+            ui->filterWidget->show();
+        }
+    });
+}
+
+void RuntimeForm::initSearchFilter()
+{
+    ui->filterWidget->hide();
+    clearFilterBtn = new QtMaterialIconButton(QtMaterialTheme::icon("navigation", "cancel"), this);
+    clearFilterBtn->setColor(QColor(Qt::darkYellow));
+    clearFilterBtn->setIconSize(QSize(16,16));
+    ui->filterLayout->insertWidget(1,clearFilterBtn);
+    connect(clearFilterBtn, &QtMaterialIconButton::clicked, [this]()
+    {
+        searchWidget->ClearSearch();
+    });
 }
 
 ItemForm *RuntimeForm::AddItem(ItemModel *model)
@@ -44,7 +88,7 @@ ItemForm *RuntimeForm::AddItem(ItemModel *model)
             .setModel(model)
             .setParent(ui->listWidget)
             .build();
-    QListWidgetItem *item = new QListWidgetItem();
+    QListWidgetItem *item = new QListWidgetItem(model->caption());
     item->setSizeHint(item_widget->sizeHint());
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, item_widget);
@@ -74,6 +118,7 @@ void RuntimeForm::RenameItem(const QString &old_caption, const QString &new_capt
         return;
     ItemForm *item_widget = items_widget.take(old_caption);
     QListWidgetItem *item_list = items.take(old_caption);
+    item_list->setText(new_caption);
     item_widget->RecaptionSilent(new_caption);
     items_widget.insert(new_caption, item_widget);
     items.insert(new_caption, item_list);
@@ -89,6 +134,25 @@ void RuntimeForm::ChangeWaitForRunItem(const QString &caption, bool waiting)
 {
     ui->statusLBL->setText("Modules are kicking off in sequence: "+ caption);
     items_widget[caption]->setWaitForRun(waiting);
+}
+
+void RuntimeForm::toggleSearchTool()
+{
+    DisplaySearchBar(!searchWidget->isVisible());
+}
+
+void RuntimeForm::FilterByCaption(const QString &filter_string)
+{
+    HideAll();
+    QList<QListWidgetItem*> matches ( ui->listWidget->findItems(filter_string, Qt::MatchFlag::MatchContains) );
+    for(QListWidgetItem* item : matches)
+        item->setHidden(false);
+}
+
+void RuntimeForm::HideAll()
+{
+    for(int row(0); row < ui->listWidget->count(); row++ )
+        ui->listWidget->item(row)->setHidden(true);
 }
 
 void RuntimeForm::on_pushButton_clicked()
@@ -109,6 +173,36 @@ void RuntimeForm::onRunAllFinished()
     ui->loadingWidget->setProgressType(Material::DeterminateProgress);
     ui->loadingWidget->setValue(0);
     ui->statusLBL->setStyleSheet("#statusLBL {color:green;}");
+}
+
+void RuntimeForm::DisplaySearchBar(bool display)
+{
+    if(display)
+    {
+        searchWidget->resize(this->width()/3,this->height()/8);
+        searchWidget->move(this->rect().center().x() - (searchWidget->width()/2),
+                           0);
+        searchWidget->show();
+    }else
+    {
+        searchWidget->CloseSearchTool();
+    }
+}
+
+void RuntimeForm::resizeEvent(QResizeEvent *event)
+{
+    if(searchWidget->isVisible())
+    {
+        searchWidget->resize(this->width()/3,this->height()/8);
+        searchWidget->move(this->rect().center().x() - (searchWidget->width()/2),
+                           0);
+    }
+    QWidget::resizeEvent(event);
+}
+
+SearchForm *RuntimeForm::getSearchWidget() const
+{
+    return searchWidget;
 }
 
 QList<ItemModel *> RuntimeForm::getRunItems() const

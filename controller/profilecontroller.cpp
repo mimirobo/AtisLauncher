@@ -439,3 +439,8 @@ bool ProfileController::saveJSonConfig(const QString &path)
     save_file.close();
     return true;
 }
+
+QString ProfileController::getCurrentProfile() const
+{
+    return currentProfile;
+}

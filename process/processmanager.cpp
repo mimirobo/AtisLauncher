@@ -79,10 +79,10 @@ void ProcessManager::RunSingle(ItemModel *item)
     SchedulerThread *schedulerThread = new SchedulerThread(items);
     schedulerThread->setApplyDelay(false);
     connect(schedulerThread, &SchedulerThread::started, [this] {
-        qDebug() << "The scheduler thread is started";
+        //qDebug() << "The scheduler thread is started";
     });
     connect(schedulerThread, &SchedulerThread::finished, [this,schedulerThread] {
-        qDebug() << "The scheduler thread is finished";
+        //qDebug() << "The scheduler thread is finished";
         schedulerThread->deleteLater();
     });
     schedulerThread->start();

@@ -56,6 +56,8 @@ public:
     bool loadJSonConfig(const QString &path);
     bool saveJSonConfig(const QString &path);
 
+    QString getCurrentProfile() const;
+
 private:
     ProfileForm *profileView;
     BaseStackedPage *stackedSetupView, *stackedRuntimeView;

@@ -7,12 +7,15 @@
 #include <QDir>
 #include <QSettings>
 #include <QDebug>
+#include <QKeyEvent>
 //material libs
 #include "qtmaterialtabs.h"
 //utils
 #include "Utils/utilities.h"
 //Controller
 #include "controller/profilecontroller.h"
+//Runtime view
+#include "widgets/Forms/runtimeform.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -77,4 +80,10 @@ void MainWindow::initializeTabs()
 void MainWindow::on_actionSave_Configurations_triggered()
 {
     profileCntrl->saveJSonConfig(QDir::homePath()+"/AtisDashboardConfig.json");
+}
+
+void MainWindow::on_actionFind_triggered()
+{
+    RuntimeForm *runtime = dynamic_cast<RuntimeForm*>(ui->runtimeStackedWidget->getProfileWidget(profileCntrl->getCurrentProfile()));
+    runtime->toggleSearchTool();
 }

@@ -23,6 +23,8 @@ private slots:
     void on_actionNew_Task_triggered();
     void on_actionSave_Configurations_triggered();
 
+    void on_actionFind_triggered();
+
 protected:
     void closeEvent(QCloseEvent *event);
 private:

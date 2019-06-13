@@ -75,6 +75,9 @@ private slots:
 
     void on_playBtn_clicked();
 
+    void showContextMenuForSetupItem(const QPoint &pos);
+    void showContextMenuForRunItem(const QPoint &pos);
+
 private:
     void InitializeType();
 private:

@@ -42,7 +42,8 @@ SOURCES += \
     process/processmanager.cpp \
     widgets/Logs/logpageform.cpp \
     widgets/Stacked/basestackedpage.cpp \
-    widgets/Forms/baseform.cpp
+    widgets/Forms/baseform.cpp \
+    widgets/Tools/searchform.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -62,7 +63,8 @@ HEADERS += \
     process/processmanager.h \
     widgets/Logs/logpageform.h \
     widgets/Stacked/basestackedpage.h \
-    widgets/Forms/baseform.h
+    widgets/Forms/baseform.h \
+    widgets/Tools/searchform.h
 
 FORMS += \
         mainwindow.ui \
@@ -75,7 +77,8 @@ FORMS += \
     widgets/Dialogs/taskcreationform.ui \
     widgets/Forms/runtimeform.ui \
     widgets/Tools/editablelabel.ui \
-    widgets/Logs/logpageform.ui
+    widgets/Logs/logpageform.ui \
+    widgets/Tools/searchform.ui
 
 DISTFILES +=
 

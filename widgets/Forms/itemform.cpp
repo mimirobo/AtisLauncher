@@ -78,34 +78,10 @@ void ItemForm::on_delBtn_clicked()
 
 void ItemForm::showContextMenu(const QPoint &pos)
 {
-    QMenu contextMenu("Item Menu",this);
-    QAction copyCMDAction("Copy Command", this);
-    QAction editCMDAction("Edit", this);
-    QAction deleteCMDAction("Delete", this);
-
-
-    connect(&editCMDAction, &QAction::triggered, [this]()
-    {
-        emit ItemEditRequested(model->caption(), model->section(), model->profile());
-    });
-
-    connect(&copyCMDAction, &QAction::triggered, [this]()
-    {
-        QClipboard *clipboard = QApplication::clipboard();
-        clipboard->setText(ProcessManager::getInstance()->generateCommand(model));
-    });
-
-    connect(&deleteCMDAction, &QAction::triggered, [this]()
-    {
-        on_delBtn_clicked();
-    });
-
-    contextMenu.addAction(&copyCMDAction);
-    contextMenu.addSeparator();
-    contextMenu.addAction(&editCMDAction);
-    contextMenu.addSeparator();
-    contextMenu.addAction(&deleteCMDAction);
-    contextMenu.exec(mapToGlobal(pos));
+    if(mItemType == ItemType::Setup)
+        showContextMenuForSetupItem(pos);
+    else
+        showContextMenuForRunItem(pos);
 }
 
 void ItemForm::InitializeType()
@@ -283,4 +259,59 @@ void ItemForm::on_openBtn_clicked()
 void ItemForm::on_playBtn_clicked()
 {
     ProcessManager::getInstance()->RunSingle(model);
+}
+
+void ItemForm::showContextMenuForSetupItem(const QPoint &pos)
+{
+    QMenu contextMenu("Item Menu",this);
+    QAction copyCMDAction("Copy Command", this);
+    QAction editCMDAction("Edit", this);
+    QAction deleteCMDAction("Delete", this);
+
+
+    connect(&editCMDAction, &QAction::triggered, [this]()
+    {
+        emit ItemEditRequested(model->caption(), model->section(), model->profile());
+    });
+
+    connect(&copyCMDAction, &QAction::triggered, [this]()
+    {
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(ProcessManager::getInstance()->generateCommand(model));
+    });
+
+    connect(&deleteCMDAction, &QAction::triggered, [this]()
+    {
+        on_delBtn_clicked();
+    });
+
+    contextMenu.addAction(&copyCMDAction);
+    contextMenu.addSeparator();
+    contextMenu.addAction(&editCMDAction);
+    contextMenu.addSeparator();
+    contextMenu.addAction(&deleteCMDAction);
+    contextMenu.exec(mapToGlobal(pos));
+}
+
+void ItemForm::showContextMenuForRunItem(const QPoint &pos)
+{
+    QMenu contextMenu("Item Menu",this);
+    QAction runCMDAction("Run", this);
+    QAction copyCMDAction("Copy Command", this);
+
+    connect(&runCMDAction, &QAction::triggered, [this]()
+    {
+        on_playBtn_clicked();
+    });
+
+    connect(&copyCMDAction, &QAction::triggered, [this]()
+    {
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(ProcessManager::getInstance()->generateCommand(model));
+    });
+
+    contextMenu.addAction(&runCMDAction);
+    contextMenu.addSeparator();
+    contextMenu.addAction(&copyCMDAction);
+    contextMenu.exec(mapToGlobal(pos));
 }
