@@ -244,7 +244,7 @@ QGroupBox::title {
   left: 3px;
   padding-left: 3px;
   padding-right: 5px;
-  padding-top: 8px;
+  padding-top: 0px;
   padding-bottom: 16px;
 }
 
@@ -691,7 +691,7 @@ QSizeGrip {
 
 --------------------------------------------------------------------------- */
 QStackedWidget {
-  padding: 4px;
+  padding: 0px;
   border: 1px solid #32414B;
   border: 1px solid #19232D;
 }

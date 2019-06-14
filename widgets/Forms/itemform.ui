@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>6</number>
    </property>
@@ -38,7 +38,7 @@
       <enum>QFrame::Plain</enum>
      </property>
      <property name="lineWidth">
-      <number>0</number>
+      <number>1</number>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1">
       <property name="spacing">
