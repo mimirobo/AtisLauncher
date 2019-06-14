@@ -1,7 +1,8 @@
 #include "editablelabel.h"
 #include "ui_editablelabel.h"
-#include <QDebug>
+
 #include <QKeyEvent>
+
 EditableLabel::EditableLabel(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditableLabel),

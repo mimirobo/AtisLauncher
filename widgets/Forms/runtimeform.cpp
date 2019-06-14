@@ -5,7 +5,6 @@
 //model
 #include "model/itemmodel.h"
 //Qts
-#include <QDebug>
 #include <QJsonArray>
 #include <QListWidgetItem>
 //Qt Material
@@ -33,7 +32,6 @@ RuntimeForm::RuntimeForm(const QString &profile_name, QWidget *parent) :
         Q_UNUSED(parent);
         Q_UNUSED(end);
         Q_UNUSED(destination);
-        //qDebug()<<"Item at "<<start<<" moved to row "<<row;
         MoveRunItem(start, row);
     });
     //initialize Search Tool
@@ -126,7 +124,6 @@ void RuntimeForm::RenameItem(const QString &old_caption, const QString &new_capt
 
 void RuntimeForm::MoveRunItem(int index, int dest_index)
 {
-    //qDebug()<<"Move from "<<index<<" to "<<dest_index;
     runItems.insert(dest_index, runItems.takeAt(index));
 }
 

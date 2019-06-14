@@ -30,6 +30,8 @@ public:
     {return (items.contains(caption))?items[caption]:nullptr;}
 
     QJsonObject Serialize()const;
+    QString section() const;
+
 public slots:
     ItemForm* AddItem(const QString &caption,
                       const Utilities::TaskTypes &taskType,

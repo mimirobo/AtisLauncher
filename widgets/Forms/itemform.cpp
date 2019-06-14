@@ -3,7 +3,6 @@
 //Qt
 #include <QUrl>
 #include <QMenu>
-#include <QDebug>
 #include <QAction>
 #include <QClipboard>
 #include <QDesktopServices>
@@ -170,7 +169,6 @@ QJsonObject ItemForm::Serialize() const
 
     for (QString param_name : model->params().keys())
     {
-        qDebug() << "ParamName:" << param_name;
         QJsonArray params_value_Jarr = QJsonArray::fromStringList(model->params()[param_name]);
         params_Jobj.insert(param_name, params_value_Jarr);
     }

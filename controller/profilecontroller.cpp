@@ -115,6 +115,24 @@ void ProfileController::AddSection(const QString &section,
     });
 }
 
+void ProfileController::AddSection(const QString &section,
+                                      const QString &profile,
+                                      int row, int col)
+{
+    SetupForm *setup = dynamic_cast<SetupForm*>(stackedSetupView->
+                                                getProfileWidget(profile));
+    SectionForm  *section_ui = setup->InsertSection(section,row, col);
+    connect(section_ui, &SectionForm::requestDragDropTransfer,
+            [this](QString source_caption, QString source_section,
+            QString dest_section, QString profile)
+    {
+        TransferSetupItem(source_caption,
+                          source_section,
+                          dest_section,
+                          profile);
+    });
+}
+
 bool ProfileController::AddSetupItem(const QString &caption,
                                      const QString &section,
                                      const QString &profile,
@@ -345,13 +363,24 @@ bool ProfileController::loadJSonConfig(const QString &path)
         AddProfile(profile_name);
         QJsonObject setup_obj = profile_Jarr.at(i)["Setup"].toObject();
         QJsonArray sections_obj = setup_obj["Sections"].toArray();
+
+        QJsonObject grid_obj = setup_obj["GridLayout"].toObject();
+        int maxRows = grid_obj["rows"].toInt();
+        int maxCols = grid_obj["cols"].toInt();
+        SetupForm *setup = dynamic_cast<SetupForm*>(stackedSetupView->
+                                                    getProfileWidget(profile_name));
+        setup->preAllocateGrid(maxRows, maxCols);
+
+        QJsonObject sectionsOrder_jobj = grid_obj["sections_order"].toObject();
         QJsonArray::iterator sec_it = sections_obj.begin();
         //Iterate over sections
         for(;sec_it!=sections_obj.end();sec_it++)
         {
             QJsonObject current_sec_obj = (*sec_it).toObject();
             QString section_name = current_sec_obj.value("SectionName").toString();
-            AddSection(section_name, profile_name);
+            int row = sectionsOrder_jobj[section_name].toObject().value("row").toInt();
+            int col = sectionsOrder_jobj[section_name].toObject().value("col").toInt();
+            AddSection(section_name, profile_name,row,col);
             QJsonArray items_Jarr = current_sec_obj.value("Items").toArray();
             QJsonArray::iterator items_it = items_Jarr.begin();
             //qDebug()<<"\nSection: "<<section_name;

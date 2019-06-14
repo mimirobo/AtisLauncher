@@ -1,7 +1,7 @@
 #include "Utils/utilities.h"
 #include <QProcess>
 #include <QProcessEnvironment>
-#include <QDebug>
+
 Utilities *Utilities::instance = 0;
 
 const QString Utilities::PACKAGE = "package";

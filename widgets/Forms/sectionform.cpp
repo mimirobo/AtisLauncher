@@ -11,7 +11,6 @@
 #include <QDrag>
 //Qt
 #include <QMessageBox>
-#include <QDebug>
 
 //Qt Json
 #include <QJsonArray>
@@ -219,4 +218,9 @@ void SectionForm::dropEvent(QDropEvent *event)
     {
         event->ignore();
     }
+}
+
+QString SectionForm::section() const
+{
+    return mSection;
 }

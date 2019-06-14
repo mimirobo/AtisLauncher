@@ -6,7 +6,6 @@
 #include <QGraphicsDropShadowEffect>
 #include <QDir>
 #include <QSettings>
-#include <QDebug>
 #include <QKeyEvent>
 //material libs
 #include "qtmaterialtabs.h"

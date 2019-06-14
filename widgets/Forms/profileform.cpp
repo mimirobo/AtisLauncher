@@ -1,7 +1,6 @@
 #include "profileform.h"
 #include "ui_profileform.h"
-
-#include <QDebug>
+//Dialogs
 #include "widgets/Dialogs/newprofiledialog.h"
 
 ProfileForm::ProfileForm(QWidget *parent) :

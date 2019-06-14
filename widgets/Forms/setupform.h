@@ -20,10 +20,13 @@ public:
                        QWidget *parent = 0);
     ~SetupForm();
 
-    inline SectionForm* getSection(const QString &section_name)
+    inline SectionForm *getSection(const QString &section_name)
     {return (sectionWidgets.contains(section_name))?sectionWidgets[section_name]:nullptr;}
 
-    SectionForm* AddSection(const QString &section_name);
+    void preAllocateGrid(int rows, int cols);
+
+    SectionForm *AddSection(const QString &section_name);
+    SectionForm *InsertSection(const QString &section_name, int row, int col);
     void RemoveSection(QString section_name);
 
     QJsonObject Serialize() const;
@@ -32,6 +35,7 @@ private:
     Ui::SetupForm *ui;
     QString mProfile;
     int row,col;
+    int maxRow, maxCol;
     QHash<QString, SectionForm*> sectionWidgets;
 };
 

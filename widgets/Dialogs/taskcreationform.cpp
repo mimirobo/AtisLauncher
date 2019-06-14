@@ -4,7 +4,6 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QDebug>
 #include <QString>
 #include <QFileInfo>
 #include <QCompleter>
@@ -31,8 +30,6 @@ TaskCreationForm::TaskCreationForm(QWidget *parent) :
     typeBtns.insert((unsigned char)Utilities::TaskTypes::Rosrun, ui->rosrunTB);
     typeBtns.insert((unsigned char)Utilities::TaskTypes::Command, ui->cmdTB_2);
     typeBtns.insert((unsigned char)Utilities::TaskTypes::Script, ui->scriptTB_2);
-
-    qDebug()<<Utilities::getInstance()->getRosPackages();
 
     QCompleter *pkgCompleter = new QCompleter(Utilities::getInstance()->getRosPackages(),
                                               this);

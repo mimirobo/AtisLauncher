@@ -1,5 +1,5 @@
 #include "itemmodel.h"
-#include <QDebug>
+
 ItemModel::ItemModel(const QString &caption,
                      const QString &section,
                      const QString &profile,

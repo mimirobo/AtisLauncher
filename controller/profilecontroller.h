@@ -24,6 +24,9 @@ public:
     void RemoveProfile(const QString &profile);
     void AddSection(const QString &section,
                     const QString &profile);
+    void AddSection(const QString &section,
+                       const QString &profile,
+                       int row, int col);
 
     bool AddSetupItem(const QString &caption,
                       const QString &section,

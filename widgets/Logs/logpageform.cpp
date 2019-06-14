@@ -4,7 +4,7 @@
 #include <QWindow>
 #include <QListWidgetItem>
 #include "process/processmanager.h"
-#include <QDebug>
+
 LogPageForm::LogPageForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LogPageForm)
