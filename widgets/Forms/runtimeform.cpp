@@ -191,6 +191,8 @@ void RuntimeForm::DisplaySearchBar(bool display)
 
 void RuntimeForm::resizeEvent(QResizeEvent *event)
 {
+    if(!this->isVisible()) //fixing the seachWidet->isVisible() bug in Qt : fixing issue #1
+        return;
     if(searchWidget->isVisible())
     {
         searchWidget->resize(this->width()/3,this->height()/8);
