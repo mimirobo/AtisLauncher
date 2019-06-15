@@ -53,6 +53,14 @@ void LogPageForm::openConsoleInTab(const QString &title)
         addConsoleTabPage(title, window_ids[title]);
 }
 
+void LogPageForm::closeAllTerminalWindows()
+{
+    for(auto win_name : windows_fullname)
+    {
+        QProcess::startDetached("wmctrl", QStringList()<<"-c"<<win_name);
+    }
+}
+
 void LogPageForm::on_expandBtn_clicked()
 {
     if(ui->expandBtn->text() == "<<")
@@ -97,8 +105,10 @@ void LogPageForm::on_updateBtn_clicked()
     ui->windowsList->clear();
     for(QString window : windows_list)
     {
-        long id= (window.split(" ")[0]).toLong(0,16);
-        QString name = window.split(" ")[1];
+        QStringList parts = window.split(" ");
+        long id= (parts[0]).toLong(0,16);
+        QString name = parts[1];
+        windows_fullname.append(name);
         if( launchfilepath.contains(name) )
             name = ProcessManager::getInstance()->getCaptionOfLaunchFile(name);
         window_ids.insert(name, id);
@@ -137,4 +147,9 @@ void LogPageForm::on_openallBtn_clicked()
         QString name = item->text();
         openConsoleInTab(name);
     }
+}
+
+void LogPageForm::on_closeallTermBtn_clicked()
+{
+    closeAllTerminalWindows();
 }

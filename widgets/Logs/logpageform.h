@@ -16,29 +16,25 @@ class LogPageForm : public QWidget
 public:
     explicit LogPageForm(QWidget *parent = 0);
     ~LogPageForm();
-
     void addConsoleTabPage(const QString &title, const long &wid);
     void removeConsoleTabPage(const QString &title);
-
     void removeAllTabPages();
-
     void openConsoleInTab(const QString &title);
+    void closeAllTerminalWindows();
 
 private slots:
     void on_expandBtn_clicked();
-
     void on_updateBtn_clicked();
-
     void on_windowsList_itemDoubleClicked(QListWidgetItem *item);
     void removeConsoleTabPage(const int &index);
-
     void on_logTab_tabCloseRequested(int index);
-
     void on_openallBtn_clicked();
+    void on_closeallTermBtn_clicked();
 
 private:
     Ui::LogPageForm *ui;
     QMap<QString, long> window_ids;
+    QStringList windows_fullname;
     QMap<QString, QWindow*> windows;
     QMap<QString, QWidget*> tabPages;
     QStringList openedTabNames;
