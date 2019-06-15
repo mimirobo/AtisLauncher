@@ -50,6 +50,16 @@ void MainWindow::on_actionNew_Task_triggered()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Exit Atis Launcher", "Are you sure you want to exit?",
+                                  QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Yes);
+    if (reply == QMessageBox::Cancel)
+    {
+        event->ignore();
+        return;
+    }
+
+
     ui->logWidget->removeAllTabPages();
     QMainWindow::closeEvent(event);
 }

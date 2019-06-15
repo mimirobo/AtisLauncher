@@ -1,5 +1,7 @@
 #include "profileform.h"
 #include "ui_profileform.h"
+//Qts
+#include <QMessageBox>
 //Dialogs
 #include "widgets/Dialogs/newprofiledialog.h"
 
@@ -53,6 +55,12 @@ void ProfileForm::on_addProfileBtn_clicked()
 
 void ProfileForm::on_removeProfileBtn_clicked()
 {
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Remove Profile", "Are you sure you want to remove the current profile?",
+                                  QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Yes);
+    if (reply == QMessageBox::Cancel)
+        return;
+
     emit RemoveCurrentProfileRequest();
 }
 
