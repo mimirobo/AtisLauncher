@@ -57,7 +57,10 @@ void LogPageForm::closeAllTerminalWindows()
 {
     for(auto win_name : windows_fullname)
     {
-        QProcess::startDetached("wmctrl", QStringList()<<"-c"<<win_name);
+        QProcess proc;
+        proc.start("wmctrl",QStringList()<<"-c"<<win_name);
+        proc.waitForFinished();
+        //QProcess::startDetached("wmctrl", );
     }
 }
 
@@ -72,7 +75,6 @@ void LogPageForm::on_expandBtn_clicked()
         ui->groupBox->setVisible(true);
         ui->expandBtn->setText("<<");
     }
-
 }
 
 void LogPageForm::on_updateBtn_clicked()
@@ -141,6 +143,7 @@ void LogPageForm::on_logTab_tabCloseRequested(int index)
 
 void LogPageForm::on_openallBtn_clicked()
 {
+    on_updateBtn_clicked();
     for(int i = 0; i < ui->windowsList->count(); ++i)
     {
         QListWidgetItem* item = ui->windowsList->item(i);
@@ -151,5 +154,7 @@ void LogPageForm::on_openallBtn_clicked()
 
 void LogPageForm::on_closeallTermBtn_clicked()
 {
+    removeAllTabPages();
     closeAllTerminalWindows();
+    on_updateBtn_clicked();
 }
