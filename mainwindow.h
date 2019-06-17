@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 class ProfileController;
+class QtMaterialSnackbar;
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,7 @@ private:
 private:
     Ui::MainWindow *ui;
     ProfileController *profileCntrl;
+    QtMaterialSnackbar *mSnackbar;
 };
 
 #endif // MAINWINDOW_H

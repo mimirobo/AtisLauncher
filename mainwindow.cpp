@@ -9,6 +9,7 @@
 #include <QKeyEvent>
 //material libs
 #include "qtmaterialtabs.h"
+#include <qtmaterialsnackbar.h>
 //utils
 #include "Utils/utilities.h"
 //Controller
@@ -31,6 +32,11 @@ MainWindow::MainWindow(QWidget *parent) :
     initializeTabs();
     this->resize(Utilities::getInstance()->getWindowWidth(),
                  Utilities::getInstance()->getWindowHeight());
+    mSnackbar = new QtMaterialSnackbar(this);
+    mSnackbar->setAutoHideDuration(500);
+    mSnackbar->setBackgroundOpacity(0.70);
+    mSnackbar->setClickToDismissMode(true);
+    mSnackbar->setTextColor(QColor(245, 121, 0));
 }
 
 MainWindow::~MainWindow()
@@ -89,6 +95,8 @@ void MainWindow::initializeTabs()
 void MainWindow::on_actionSave_Configurations_triggered()
 {
     profileCntrl->saveJSonConfig(QDir::homePath()+"/AtisDashboardConfig.json");
+
+    mSnackbar->addMessage("All the cofigurations have been saved.");
 }
 
 void MainWindow::on_actionFind_triggered()
