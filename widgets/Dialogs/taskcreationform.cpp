@@ -134,25 +134,37 @@ void TaskCreationForm::fillDataForEditMode(const QString &caption,
 void TaskCreationForm::on_sensorTB_toggled(bool checked)
 {
     if (checked)
+    {
         sec_index = 0;
+        sectionIndexChanged();
+    }
 }
 
 void TaskCreationForm::on_cmdTB_toggled(bool checked)
 {
     if (checked)
+    {
         sec_index = 1;
+        sectionIndexChanged();
+    }
 }
 
 void TaskCreationForm::on_compTB_toggled(bool checked)
 {
     if (checked)
+    {
         sec_index = 2;
+        sectionIndexChanged();
+    }
 }
 
 void TaskCreationForm::on_scriptTB_toggled(bool checked)
 {
     if (checked)
+    {
         sec_index = 3;
+        sectionIndexChanged();
+    }
 }
 
 void TaskCreationForm::on_roslaunchTB_toggled(bool checked)
@@ -201,21 +213,71 @@ void TaskCreationForm::typeIndexChanged()
         ui->filePathWidget->setVisible(true);
         ui->packageWidget->setVisible(false);
         ui->cmdWidget->setVisible(false);
+
+        ui->roslaunchTB->setStyleSheet("border:3px;border-style: outset;border-color: rgb(245, 121, 0);");
+        ui->rosrunTB->setStyleSheet("");
+        ui->cmdTB_2->setStyleSheet("");
+        ui->scriptTB_2->setStyleSheet("");
         break;
     case 1:
         ui->filePathWidget->setVisible(false);
         ui->packageWidget->setVisible(true);
         ui->cmdWidget->setVisible(false);
+
+        ui->roslaunchTB->setStyleSheet("");
+        ui->rosrunTB->setStyleSheet("border:3px;border-style: outset;border-color: rgb(245, 121, 0);");
+        ui->cmdTB_2->setStyleSheet("");
+        ui->scriptTB_2->setStyleSheet("");
         break;
     case 2:
         ui->filePathWidget->setVisible(false);
         ui->packageWidget->setVisible(false);
         ui->cmdWidget->setVisible(true);
+
+        ui->roslaunchTB->setStyleSheet("");
+        ui->rosrunTB->setStyleSheet("");
+        ui->cmdTB_2->setStyleSheet("border:3px;border-style: outset;border-color: rgb(245, 121, 0);");
+        ui->scriptTB_2->setStyleSheet("");
         break;
     case 3:
         ui->filePathWidget->setVisible(true);
         ui->packageWidget->setVisible(false);
         ui->cmdWidget->setVisible(false);
+
+        ui->roslaunchTB->setStyleSheet("");
+        ui->rosrunTB->setStyleSheet("");
+        ui->cmdTB_2->setStyleSheet("");
+        ui->scriptTB_2->setStyleSheet("border:3px;border-style: outset;border-color: rgb(245, 121, 0);");
+        break;
+    }
+}
+
+void TaskCreationForm::sectionIndexChanged()
+{
+    switch (sec_index) {
+    case 0:
+        ui->sensorTB->setStyleSheet("border:3px;border-style: outset;border-color: rgb(114, 159, 207);");
+        ui->cmdTB->setStyleSheet("");
+        ui->compTB->setStyleSheet("");
+        ui->scriptTB->setStyleSheet("");
+        break;
+    case 1:
+        ui->sensorTB->setStyleSheet("");
+        ui->cmdTB->setStyleSheet("border:3px;border-style: outset;border-color: rgb(114, 159, 207);");
+        ui->compTB->setStyleSheet("");
+        ui->scriptTB->setStyleSheet("");
+        break;
+    case 2:
+        ui->sensorTB->setStyleSheet("");
+        ui->cmdTB->setStyleSheet("");
+        ui->compTB->setStyleSheet("border:3px;border-style: outset;border-color: rgb(114, 159, 207);");
+        ui->scriptTB->setStyleSheet("");
+        break;
+    case 3:
+        ui->sensorTB->setStyleSheet("");
+        ui->cmdTB->setStyleSheet("");
+        ui->compTB->setStyleSheet("");
+        ui->scriptTB->setStyleSheet("border:3px;border-style: outset;border-color: rgb(114, 159, 207);");
         break;
     }
 }

@@ -32,14 +32,13 @@ private slots:
     void on_cmdTB_2_toggled(bool checked);
     void on_scriptTB_2_toggled(bool checked);
     void typeIndexChanged();
+    void sectionIndexChanged();
     void on_openFileBtn_clicked();
-
 signals:
     void createNewItemSignal(QString caption, QString section, unsigned char type,
                              ParamsType data);
     void ItemEditedSignal(QString caption, QString section,
                           ParamsType data);
-
 private:
     Ui::TaskCreationForm *ui;
     unsigned char current_type, sec_index;

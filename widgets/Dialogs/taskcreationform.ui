@@ -75,6 +75,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">border:3px;border-style: outset;border-color: rgb(245, 121, 0);</string>
+            </property>
             <property name="text">
              <string>Roslaunch</string>
             </property>
@@ -262,6 +265,9 @@
               <width>90</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border:3px;border-style: outset;border-color: rgb(114, 159, 207);</string>
             </property>
             <property name="text">
              <string>Sensors</string>
