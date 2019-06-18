@@ -9,6 +9,7 @@
 class MainWindow;
 class ProfileForm;
 class BaseStackedPage;
+class LogPageForm;
 
 class ProfileController : public QObject
 {
@@ -17,6 +18,7 @@ public:
     ProfileController(QWidget *profile_view,
                       QWidget *stacked_setup_view,
                       QWidget *stacked_runtime_view,
+                      QWidget *log_view,
                       QObject *parent=nullptr);
     ~ProfileController();
 
@@ -65,8 +67,8 @@ private:
     ProfileForm *profileView;
     BaseStackedPage *stackedSetupView, *stackedRuntimeView;
     MainWindow *mainWindow;
+    LogPageForm *logView;
     QStringList sectionNames;
-
 
     QStringList allProfiles;
     QString currentProfile;

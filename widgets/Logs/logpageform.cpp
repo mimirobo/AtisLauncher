@@ -64,20 +64,7 @@ void LogPageForm::closeAllTerminalWindows()
     }
 }
 
-void LogPageForm::on_expandBtn_clicked()
-{
-    if(ui->expandBtn->text() == "<<")
-    {
-        ui->groupBox->setVisible(false);
-        ui->expandBtn->setText(">>");
-    }else
-    {
-        ui->groupBox->setVisible(true);
-        ui->expandBtn->setText("<<");
-    }
-}
-
-void LogPageForm::on_updateBtn_clicked()
+void LogPageForm::updateWindowsList()
 {
     QProcess wmctrl_p;
     QProcess grep_p;
@@ -104,6 +91,7 @@ void LogPageForm::on_updateBtn_clicked()
     QStringList windows_list = output.split("\n");
     windows_list.removeAll("");
     window_ids.clear();
+    windows_fullname.clear();
     ui->windowsList->clear();
     for(QString window : windows_list)
     {
@@ -121,6 +109,24 @@ void LogPageForm::on_updateBtn_clicked()
     {
         ui->windowsList->addItem(window);
     }
+}
+
+void LogPageForm::on_expandBtn_clicked()
+{
+    if(ui->expandBtn->text() == "<<")
+    {
+        ui->groupBox->setVisible(false);
+        ui->expandBtn->setText(">>");
+    }else
+    {
+        ui->groupBox->setVisible(true);
+        ui->expandBtn->setText("<<");
+    }
+}
+
+void LogPageForm::on_updateBtn_clicked()
+{
+    updateWindowsList();
 }
 
 void LogPageForm::on_windowsList_itemDoubleClicked(QListWidgetItem *item)
@@ -154,7 +160,13 @@ void LogPageForm::on_openallBtn_clicked()
 
 void LogPageForm::on_closeallTermBtn_clicked()
 {
-    removeAllTabPages();
+    //removeAllTabPages();
     closeAllTerminalWindows();
     on_updateBtn_clicked();
+}
+
+void LogPageForm::on_closeAllTabsBtn_clicked()
+{
+    removeAllTabPages();
+    ui->closeallTermBtn->setEnabled(true);
 }

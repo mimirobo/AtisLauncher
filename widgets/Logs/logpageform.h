@@ -22,6 +22,8 @@ public:
     void openConsoleInTab(const QString &title);
     void closeAllTerminalWindows();
 
+    void updateWindowsList();
+
 private slots:
     void on_expandBtn_clicked();
     void on_updateBtn_clicked();
@@ -30,6 +32,8 @@ private slots:
     void on_logTab_tabCloseRequested(int index);
     void on_openallBtn_clicked();
     void on_closeallTermBtn_clicked();
+
+    void on_closeAllTabsBtn_clicked();
 
 private:
     Ui::LogPageForm *ui;

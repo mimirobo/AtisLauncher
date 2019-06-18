@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     profileCntrl = new ProfileController(ui->profileWidget,
                                          ui->setupStackedWidget,
                                          ui->runtimeStackedWidget,
+                                         ui->logWidget,
                                          this);
     initializeTabs();
     this->resize(Utilities::getInstance()->getWindowWidth(),

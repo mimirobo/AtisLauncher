@@ -8,6 +8,8 @@
 #include "widgets/Forms/runtimeform.h"
 #include "widgets/Forms/itemform.h"
 #include "mainwindow.h"
+//Log view
+#include "widgets/Logs/logpageform.h"
 //Dialogs
 #include "widgets/Dialogs/taskdialog.h"
 #include "widgets/Dialogs/taskcreationform.h"
@@ -18,6 +20,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QFile>
+#include <QTimer>
 //Qts Json
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -29,16 +32,19 @@
 ProfileController::ProfileController(QWidget *profile_view,
                                      QWidget *stacked_setup_view,
                                      QWidget *stacked_runtime_view,
+                                     QWidget *log_view,
                                      QObject *parent)
     :QObject(parent)
 {
     profileView = dynamic_cast<ProfileForm*>(profile_view);
     stackedSetupView = dynamic_cast<BaseStackedPage*>(stacked_setup_view);
     stackedRuntimeView = dynamic_cast<BaseStackedPage*>(stacked_runtime_view);
+    logView = dynamic_cast<LogPageForm*>(log_view);
     mainWindow = dynamic_cast<MainWindow*>(parent);
     Q_ASSERT(profileView);
     Q_ASSERT(stackedSetupView);
     Q_ASSERT(stackedRuntimeView);
+    Q_ASSERT(logView);
     Q_ASSERT(mainWindow);
     sectionNames = QStringList()<<
                                    "Sensors"<<
@@ -46,7 +52,6 @@ ProfileController::ProfileController(QWidget *profile_view,
                                    "Competitions"<<
                                    "Scripts";
     connectViewSignals();
-
     loadJSonConfig(QDir::homePath()+"/AtisDashboardConfig.json");
 }
 
@@ -78,6 +83,10 @@ bool ProfileController::AddProfile(const QString &profile)
             [this,runtime](QString caption, QString profile, bool waiting)
     {
         runtime->ChangeWaitForRunItem(caption, waiting);
+        QTimer::singleShot(3000, [this,caption]()
+        {
+            logView->updateWindowsList();
+        });
     });
     connect(ProcessManager::getInstance(), &ProcessManager::RunAllBegan,
             runtime, &RuntimeForm::onRunAllBegan);
