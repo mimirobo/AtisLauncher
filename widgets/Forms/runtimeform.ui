@@ -66,20 +66,17 @@
         <property name="text">
          <string>Run All</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+        <property name="icon">
+         <iconset resource="../../resources/mrl_resources.qrc">
+          <normaloff>:/icons/play-button.png</normaloff>:/icons/play-button.png</iconset>
         </property>
-        <property name="sizeHint" stdset="0">
+        <property name="iconSize">
          <size>
-          <width>247</width>
-          <height>20</height>
+          <width>48</width>
+          <height>48</height>
          </size>
         </property>
-       </spacer>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -127,6 +124,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../resources/mrl_resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

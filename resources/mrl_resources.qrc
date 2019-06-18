@@ -30,5 +30,6 @@
         <file>icons/transparent_logo.png</file>
         <file>splash/autocad.png</file>
         <file>splash/atis_splashscreen.png</file>
+        <file>icons/play-button.png</file>
     </qresource>
 </RCC>
