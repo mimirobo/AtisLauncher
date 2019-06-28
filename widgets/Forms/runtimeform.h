@@ -34,6 +34,7 @@ public:
     void MoveRunItem(int index, int dest_index);
     void ChangeWaitForRunItem(const QString &caption,
                               bool waiting);
+    void RequestRunAll();
     //Search Tool
     void toggleSearchTool();
     void FilterByCaption(const QString &filter_string);

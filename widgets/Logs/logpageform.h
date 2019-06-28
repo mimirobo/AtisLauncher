@@ -22,6 +22,8 @@ public:
     void openConsoleInTab(const QString &title);
     void closeAllTerminalWindows();
 
+    void OpenAllWindows();
+
     void updateWindowsList();
 
 private slots:

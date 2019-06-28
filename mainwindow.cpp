@@ -105,3 +105,14 @@ void MainWindow::on_actionFind_triggered()
     RuntimeForm *runtime = dynamic_cast<RuntimeForm*>(ui->runtimeStackedWidget->getProfileWidget(profileCntrl->getCurrentProfile()));
     runtime->toggleSearchTool();
 }
+
+void MainWindow::on_actionRun_All_triggered()
+{
+    RuntimeForm *runtime = dynamic_cast<RuntimeForm*>(ui->runtimeStackedWidget->getProfileWidget(profileCntrl->getCurrentProfile()));
+    runtime->RequestRunAll();
+}
+
+void MainWindow::on_actionOpen_All_triggered()
+{
+    ui->logWidget->OpenAllWindows();
+}

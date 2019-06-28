@@ -64,6 +64,17 @@ void LogPageForm::closeAllTerminalWindows()
     }
 }
 
+void LogPageForm::OpenAllWindows()
+{
+    on_updateBtn_clicked();
+    for(int i = 0; i < ui->windowsList->count(); ++i)
+    {
+        QListWidgetItem* item = ui->windowsList->item(i);
+        QString name = item->text();
+        openConsoleInTab(name);
+    }
+}
+
 void LogPageForm::updateWindowsList()
 {
     QProcess wmctrl_p;
@@ -149,13 +160,7 @@ void LogPageForm::on_logTab_tabCloseRequested(int index)
 
 void LogPageForm::on_openallBtn_clicked()
 {
-    on_updateBtn_clicked();
-    for(int i = 0; i < ui->windowsList->count(); ++i)
-    {
-        QListWidgetItem* item = ui->windowsList->item(i);
-        QString name = item->text();
-        openConsoleInTab(name);
-    }
+    OpenAllWindows();
 }
 
 void LogPageForm::on_closeallTermBtn_clicked()

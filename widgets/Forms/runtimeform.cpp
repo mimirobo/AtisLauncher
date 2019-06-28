@@ -133,6 +133,11 @@ void RuntimeForm::ChangeWaitForRunItem(const QString &caption, bool waiting)
     items_widget[caption]->setWaitForRun(waiting);
 }
 
+void RuntimeForm::RequestRunAll()
+{
+    emit runAllRequested(mProfile);
+}
+
 void RuntimeForm::toggleSearchTool()
 {
     DisplaySearchBar(!searchWidget->isVisible());

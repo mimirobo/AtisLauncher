@@ -101,7 +101,7 @@ void ItemForm::InitializeType()
         });
         ui->delayBox->hide();
         ui->delay_cap->hide();
-        ui->playBtn->hide();
+        //ui->playBtn->hide();
 
         ui->loadingWidget->hide();
         break;

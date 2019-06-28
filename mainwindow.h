@@ -26,6 +26,10 @@ private slots:
 
     void on_actionFind_triggered();
 
+    void on_actionRun_All_triggered();
+
+    void on_actionOpen_All_triggered();
+
 protected:
     void closeEvent(QCloseEvent *event);
 private:
