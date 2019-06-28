@@ -26,6 +26,7 @@ public slots:
 signals:
     void AddProfileRequest(const QString &profile);
     void RemoveCurrentProfileRequest();
+    void DuplicateProfileRequest(const QString &new_profile);
     void currentProfileChanged(const QString &current_profile_name);
 private:
     Ui::ProfileForm *ui;

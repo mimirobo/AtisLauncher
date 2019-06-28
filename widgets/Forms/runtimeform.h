@@ -42,6 +42,7 @@ public:
     //Getters
     ItemForm* Item(const QString &caption)
     {return (items_widget.contains(caption))?items_widget[caption]:nullptr;}
+    QStringList getAllItemsCaption()const;
     QString profile() const;
     QList<ItemModel *> getRunItems() const;
     QJsonObject Serialize() const;

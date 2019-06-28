@@ -20,6 +20,7 @@ public:
                        QWidget *parent = 0);
     ~SetupForm();
 
+    QStringList getAllSectionsName()const {return sectionWidgets.keys();}
     inline SectionForm *getSection(const QString &section_name)
     {return (sectionWidgets.contains(section_name))?sectionWidgets[section_name]:nullptr;}
 

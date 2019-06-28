@@ -107,6 +107,56 @@ void ProfileController::RemoveProfile(const QString &profile)
         mainWindow->setNewTaskEnable(false);
 }
 
+void ProfileController::DuplicateProfile(const QString source_profile,
+                                         const QString &new_profile)
+{
+    //Add Profile
+    bool result = AddProfile(new_profile);
+    if(!result)
+        return;
+    int row = 0;
+    int col = 0;
+    for(auto current_section: sectionNames)
+    {
+        //Add Section
+        AddSection(current_section, new_profile, row, col );
+        col++;
+        if(col==2)
+        {
+            row++;
+            col = 0;
+        }
+    }
+    //Add Setup Items
+    SetupForm *setup = dynamic_cast<SetupForm*>(stackedSetupView->
+                                                getProfileWidget(source_profile));
+
+    for(auto section_name : setup->getAllSectionsName())
+    {
+        SectionForm *section_widget = setup->getSection(section_name);
+        for (auto item_name : section_widget->getAllItemsCaption())
+        {
+            ItemForm *current_item = section_widget->Item(item_name);
+            AddSetupItem(current_item->caption(),
+                         section_name,
+                         new_profile,
+                         (unsigned char)current_item->getModel()->type(),
+                         current_item->getModel()->params(),
+                         current_item->getModel()->runDelay());
+
+        }
+    }
+    //Add Runtime Items
+    RuntimeForm * runtime = dynamic_cast<RuntimeForm*>(stackedRuntimeView->getProfileWidget(source_profile));
+    for(auto run_caption : runtime->getAllItemsCaption())
+    {
+        changeItemRuntimeState(run_caption,
+                               runtime->Item(run_caption)->getModel()->section(),
+                               new_profile,
+                               true);
+    }
+}
+
 void ProfileController::AddSection(const QString &section,
                                    const QString &profile)
 {
@@ -238,6 +288,11 @@ void ProfileController::connectViewSignals()
         currentProfile = current_profile_name;
         stackedSetupView->CurrentProfileChanged(currentProfile);
         stackedRuntimeView->CurrentProfileChanged(currentProfile);
+    });
+    connect( profileView, &ProfileForm::DuplicateProfileRequest,
+             [this](const QString &new_profile)
+    {
+        DuplicateProfile(currentProfile, new_profile);
     });
 }
 

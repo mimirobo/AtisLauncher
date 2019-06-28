@@ -26,6 +26,7 @@ public:
     ~SectionForm();
 
     inline bool ContainsItem(const QString &caption) {return items.contains(caption);}
+    QStringList getAllItemsCaption()const {return items.keys();}
     ItemForm* Item(const QString &caption)
     {return (items.contains(caption))?items[caption]:nullptr;}
 
@@ -44,8 +45,8 @@ public slots:
     bool RenameItem(const QString &old_caption,
                     const QString &new_caption);
 signals:
-  void requestDragDropTransfer(QString source_caption, QString source_section,
-                               QString dest_section, QString profile);
+    void requestDragDropTransfer(QString source_caption, QString source_section,
+                                 QString dest_section, QString profile);
 protected:
     void mousePressEvent(QMouseEvent *event) override;
     void dragEnterEvent(QDragEnterEvent *event) override;

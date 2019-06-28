@@ -66,6 +66,29 @@ void ProfileForm::on_removeProfileBtn_clicked()
 
 void ProfileForm::on_duplicateProfileBtn_clicked()
 {
+    ui->addProfileBtn->setEnabled(false);
+    ui->removeProfileBtn->setEnabled(false);
+    ui->duplicateProfileBtn->setEnabled(false);
+
+    NewProfileDialog *new_dialog = new NewProfileDialog(this, false);
+    connect(new_dialog, &NewProfileDialog::profileAdded,
+            [this, new_dialog](QString profile_name)
+    {
+        emit DuplicateProfileRequest(profile_name);
+        new_dialog->deleteLater();
+    });
+
+    connect(new_dialog, &NewProfileDialog::rejected,
+            [this]()
+    {
+        ui->addProfileBtn->setEnabled(true);
+        if(ui->profileComboBox->count() > 0)
+        {
+            ui->removeProfileBtn->setEnabled(true);
+            ui->duplicateProfileBtn->setEnabled(true);
+        }
+    });
+    new_dialog->exec();
 }
 
 void ProfileForm::onProfileAdded(const QString &profile)

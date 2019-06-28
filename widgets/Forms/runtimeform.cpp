@@ -157,6 +157,14 @@ void RuntimeForm::HideAll()
         ui->listWidget->item(row)->setHidden(true);
 }
 
+QStringList RuntimeForm::getAllItemsCaption() const
+{
+    QStringList captions;
+    for (auto item : runItems)
+        captions << item->caption();
+    return captions;
+}
+
 void RuntimeForm::on_pushButton_clicked()
 {
     emit runAllRequested(mProfile);

@@ -24,6 +24,8 @@ public:
 
     bool AddProfile(const QString &profile);
     void RemoveProfile(const QString &profile);
+    void DuplicateProfile(const QString source_profile,
+                          const QString &new_profile);
     void AddSection(const QString &section,
                     const QString &profile);
     void AddSection(const QString &section,
